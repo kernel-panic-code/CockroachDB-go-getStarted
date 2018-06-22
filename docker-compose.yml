@@ -1,0 +1,37 @@
+version: '2'
+
+networks:
+  roachnet:
+
+services:
+  master:
+    image: cockroachdb/cockroach:v2.0.3
+    command: start --insecure
+    ports:
+      - 8080:8080
+      - 26257:26257
+    networks:
+        - roachnet
+    volumes:
+      - "${DATA_DIR}/roach:/mater/cockroach/cockroach-data"
+  slave-one:
+    image: cockroachdb/cockroach:v2.0.3
+    command: start --insecure --join=master
+    networks:
+        - roachnet
+    volumes:
+      - "${DATA_DIR}/roach/slave1:/cockroach/cockroach-data"
+  slave-two:
+    image: cockroachdb/cockroach:v2.0.3
+    command: start --insecure --join=master
+    networks:
+        - roachnet
+    volumes:
+      - "${DATA_DIR}/roach/slave2:/cockroach/cockroach-data"
+  slave-three:
+    image: cockroachdb/cockroach:v2.0.3
+    command: start --insecure --join=master
+    networks:
+        - roachnet
+    volumes:
+      - "${DATA_DIR}/roach/slave3:/cockroach/cockroach-data"

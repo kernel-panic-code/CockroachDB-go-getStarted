@@ -1,0 +1,14 @@
+$ docker exec -it goroach_master_1 ./cockroach sql --insecure
+
+> create database blog_db;
+> set database = blog_db;
+
+> CREATE TABLE "posts" (
+    "id" SERIAL,
+    "name" STRING(100),
+    "category" STRING(50),
+    "author" STRING(50),
+    "created_at" TIMESTAMPTZ,
+    "updated_at" TIMESTAMPTZ,
+    PRIMARY KEY ("id")
+);
